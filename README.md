@@ -21,5 +21,9 @@ The bulk of workflow input data are images in the `fits` format which can be dow
 ```sudo ./download_fits_files.sh data/rc.txt``` (sudo may be necessary due to root/root ownership of the `data` subfolder)
 
 ## Running workflow
-The `hyperflowwms/montage2-worker` container is provided to run the workflows in a distributed infrastructure, e.g. using the [HyperFlow Kubernetes deployment](https://github.com/hyperflow-wms/hyperflow-k8s-deployment).
+The `hyperflowwms/montage2-worker` container is provided to run the workflows in a distributed infrastructure, e.g. using the [HyperFlow Kubernetes deployment](https://github.com/hyperflow-wms/hyperflow-k8s-deployment). Smaller workflows can be run on a single machine as follows (in directory with `workflow.json`):
 
+```
+docker run -d --name redis redis --bind 127.0.0.1
+. run.sh
+```
