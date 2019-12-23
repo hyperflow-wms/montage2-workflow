@@ -5,8 +5,8 @@ This is a port of Pegasus [Montage 2 workflow](https://github.com/pegasus-isi/mo
 ## Generate example workflows
 
 Two scripts are provided to generate example workflows:
-- `genwf-2mass.sh` (6k tasks)
-- `genwf-dss.sh` (8k tasks)
+- `genwf-2mass.sh` (9805 tasks)
+- `genwf-dss.sh` (6448 tasks)
 
 The scripts invoke Docker images and create:
 - HyperFlow workflow graph (`workflow.json`) in the current directory
