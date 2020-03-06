@@ -27,3 +27,51 @@ The `hyperflowwms/montage2-worker` container is provided to run the workflows in
 docker run -d --name redis redis --bind 127.0.0.1
 . run.sh
 ```
+
+## Compile Montage to run on AWS Lambda
+
+In order to run this workflow on AWS Lambda one has to compile and statically link montage.
+
+Download montage
+```
+wget http://montage.ipac.caltech.edu/download/Montage_v5.0.tar.gz
+```
+
+Extract the files.
+
+In order to statically link needed executables we have to go to folders that are building following tasks:
+```
+mImgtbl
+mBackground
+mAdd
+mDiffFit
+mConcatFit
+mBgModel
+mProject
+```
+Example for mAdd:
+
+1. Go to `<montage folder>/MontageLib/Add`
+2. Open `Makefile.LINUX`
+3. Add `-static -static-libgcc` to `LIBS` variable
+
+Do it for every executable.`make` project. Check with command `ldd` if program was correctly linked. You should see something like this:
+```
+ldd mAdd
+output:
+is not dynamic executable
+```
+
+Unfortunately there is a problem with `mViewer`. For some reason it cannot be statically linked against freetype library. Fortunately there is a solution to this problem.
+
+Run docker with Amazon Linux 2 (this is the same image that is ran on AWS Lambda). Login into docker. Download or copy Montage. Try to make. Install missing packages. When successfully compiled execute:
+```
+ldd mViewer
+Output:
+libfreetype.so.6 => /usr/lib/x86_64-linux-gnu/libfreetype.so.6
+<some other standard libraries>
+```
+
+Extract `libfreetype.so.6` as well as file that `libfreetype.so.6` is pointing to (at the time of writing this tutorial it was `libfreetype.so.6.10.0`)
+
+All these files should be present while deploying AWS Lambda executor. 
