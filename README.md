@@ -48,6 +48,8 @@ mDiffFit
 mConcatFit
 mBgModel
 mProject
+mDiff
+mFitplane
 ```
 Example for mAdd:
 
@@ -74,4 +76,4 @@ libfreetype.so.6 => /usr/lib/x86_64-linux-gnu/libfreetype.so.6
 
 Extract `libfreetype.so.6` as well as file that `libfreetype.so.6` is pointing to (at the time of writing this tutorial it was `libfreetype.so.6.10.0`)
 
-All these files should be present while deploying AWS Lambda executor. 
+All these files should be present while deploying AWS Lambda executor. If for some reason you do not want to statically link, you can run Amazon Linux 2 image and build executables there (libfreetype.so.6 still has to be copied from image and present in AWS Lambda execution package)
