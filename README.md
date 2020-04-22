@@ -12,7 +12,7 @@ The scripts invoke Docker images and create:
 - HyperFlow workflow graph (`workflow.json`) in the current directory
 - `data` subdirectory with workflow data (only index files, no `fits` image files) 
 
-You can also directly use the `hyperflowwms/montage2-generator` image to generate other workflows, see the scripts for command examples.
+You can also directly use the `hyperflowwms/montage2-generator` image to generate other workflows, see the scripts for command examples. For example, to generate smaller workflows, use a smaller value of the `--degrees` parameter.
 
 ## Download `fits` data
 
