@@ -1,0 +1,17 @@
+sudo: required
+
+services:
+- docker
+
+script:
+- make container
+
+before_deploy:
+- docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+deploy:
+- provider: script
+  script: make push
+  on:
+    branch: master
+    tags: true
