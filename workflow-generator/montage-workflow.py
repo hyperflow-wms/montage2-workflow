@@ -319,7 +319,7 @@ def add_band(dax, band_id, center, degrees, survey, band, color):
     updated_corrected_tbl = File("%s-updated-corrected.tbl" %(band_id))
     j.uses(corrected_tbl, link=Link.INPUT)
     j.uses(updated_corrected_tbl, link=Link.OUTPUT, transfer=False)
-    j.addArguments(".", "-t", corrected_tbl, updated_corrected_tbl)
+    j.addArguments("-t", corrected_tbl, ".", updated_corrected_tbl)
     data = ascii.read("data/%s-corrected.tbl" %(band_id))  
     for row in data:
         base_name = re.sub("(diff\.|\.fits.*)", "", row['file'])

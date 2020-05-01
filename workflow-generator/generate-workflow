@@ -1,3 +1,8 @@
-#!/bin/sh
-
-montage-workflow.py "$@" && hflow-convert-dax data/montage.dax > workflow.json && rm data/montage.dax
+#!/bin/bash
+DEGREE_REGEX="--degrees\s+([0-9]+([,.][0-9]+)?)"
+if [[ "$@" =~ $DEGREE_REGEX ]]; then
+    degree="${BASH_REMATCH[1]}"
+fi
+echo "degree=$degree"
+montage-workflow.py "$@" && hflow-convert-dax data/montage.dax > data/workflow.json && rm data/montage.dax
+editWorkflow.py -n montage2 -v 1.0.0 -s $degree -p data/workflow.json

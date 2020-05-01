@@ -2,7 +2,7 @@ FROM mhart/alpine-node:12
 
 LABEL maintainer "Bartosz Balis <balis@agh.edu.pl>"
 
-RUN apk add --no-cache make gcc g++ libnsl libnsl-dev
+RUN apk add --no-cache make gcc g++ libnsl libnsl-dev bash
 RUN apk add python py-pip unzip
 
 
