@@ -2,18 +2,16 @@
 # PREFIX = $(shell git config --get remote.origin.url | tr ':.' '/'  | rev | cut -d '/' -f 3 | rev)
 # REPO_NAME = $(shell git config --get remote.origin.url | tr ':.' '/'  | rev | cut -d '/' -f 2 | rev)
 
-REPO_NAME='montage2-worker'
-PREFIX='hyperflowwms'
-JOB_EXECUTOR_SHORT='je'
-HF_JOB_EXECUTOR_VERSION='v1.0.16'
-TAG=$(JOB_EXECUTOR_SHORT)-$(HF_JOB_EXECUTOR_VERSION)
+REPO_NAME = 'montage2-alpine-node-12'
+PREFIX = 'hyperflowwms'
+TAG = 'montage5.0'
 
 all: push
 
 container: image
 
 image:
-	docker build --build-arg hf_job_executor_version=$(HF_JOB_EXECUTOR_VERSION) -t $(PREFIX)/$(REPO_NAME) . # Build new image and automatically tag it as latest
+	docker build -t $(PREFIX)/$(REPO_NAME) . # Build new image and automatically tag it as latest
 	docker tag $(PREFIX)/$(REPO_NAME) $(PREFIX)/$(REPO_NAME):$(TAG)  # Add the version tag to the latest image
 
 push: image
