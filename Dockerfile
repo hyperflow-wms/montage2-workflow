@@ -1,17 +1,9 @@
-FROM mhart/alpine-node:12
+FROM hyperflowwms/montage2-alpine-node-12:montage5.0
 
-ENV HYPERFLOW_JOB_EXECUTOR_VERSION=v1.0.15
+# Version of the job executor should be passed via docker build, e.g.: 
+# docker build --build-arg hf_job_executor_version="v1.0.16""
+ARG hf_job_executor_version
 
-RUN apk add --no-cache make gcc g++ libnsl libnsl-dev freetype
+ENV HYPERFLOW_JOB_EXECUTOR_VERSION=$hf_job_executor_version
+
 RUN npm -g install -g https://github.com/hyperflow-wms/hyperflow-job-executor/archive/${HYPERFLOW_JOB_EXECUTOR_VERSION}.tar.gz
-RUN cd / && \
-    wget -nv https://github.com/Caltech-IPAC/Montage/archive/master.zip && \
-    unzip master.zip && \
-    rm -f master.zip && \
-    mv Montage-master Montage && \
-    cd Montage && \
-    make && \
-    rm -rf MontageLib && \
-    rm -rf Montage
-
-ENV PATH $PATH:/Montage/bin
