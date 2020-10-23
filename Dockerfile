@@ -6,4 +6,4 @@ ARG hf_job_executor_version
 
 ENV HYPERFLOW_JOB_EXECUTOR_VERSION=$hf_job_executor_version
 
-RUN npm -g install -g https://github.com/hyperflow-wms/hyperflow-job-executor/archive/${HYPERFLOW_JOB_EXECUTOR_VERSION}.tar.gz
+RUN npm install -g @hyperflow/job-executor@${HYPERFLOW_JOB_EXECUTOR_VERSION}
