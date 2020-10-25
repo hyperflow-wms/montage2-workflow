@@ -1,7 +1,5 @@
 FROM busybox
 
-MAINTAINER Michal Orzechowski <orzechowski.michal@gmail.com>
-
 ARG WORKFLOW_DEGREE
 ARG NUMBER_OF_TASKS
 ARG WORKFLOW_DIR
