@@ -1,12 +1,12 @@
 FROM mhart/alpine-node:12
 
 RUN apk add --no-cache make gcc g++ libnsl libnsl-dev freetype
-RUN cd / && \
-    wget -nv https://github.com/Caltech-IPAC/Montage/archive/master.zip && \
-    unzip master.zip && \
-    rm -f master.zip && \
-    mv Montage-master Montage && \
+WORKDIR /
+ADD Montage-master.tar.gz /
+COPY patches.diff /
+RUN mv Montage-master Montage && \
     cd Montage && \
+    patch -p1 < ../patches.diff && \
     make && \
     rm -rf MontageLib && \
     rm -rf Montage

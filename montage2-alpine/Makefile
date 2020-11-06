@@ -4,7 +4,7 @@
 
 REPO_NAME = 'montage2-alpine-node-12'
 PREFIX = 'hyperflowwms'
-TAG = 'montage5.0'
+TAG = 'montage5.0-patched'
 
 all: push
 
