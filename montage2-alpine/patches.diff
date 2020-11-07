@@ -1,30 +1,36 @@
-diff -ru Montage-master/Montage/mDiffExec.c Montage-master-patched/Montage/mDiffExec.c
---- Montage-master/Montage/mDiffExec.c	2020-07-28 16:28:07.000000000 +0200
-+++ Montage-master-patched/Montage/mDiffExec.c	2020-11-06 23:23:17.487945200 +0100
-@@ -315,12 +315,21 @@
- 
-       if(strcmp( status, "ABORT") == 0)
-       {
--	 strcpy( msg, svc_value( "msg" ));
-+         strcpy(msg, svc_value("msg"));
- 
--	 fprintf(fstatus, "[struct stat=\"ERROR\", msg=\"%s\"]\n", msg);
--	 fflush(stdout);
--
--	 exit(1);
-+         fprintf(fstatus, "[struct stat=\"ERROR\", msg=\"%s\"]\n", msg);
-+         fflush(stdout);
-+         /* some errors from mDiff are ignored, such as images not overlapping */
-+         if (strcmp(msg, "Images don't overlap") == 0 || strcmp(msg, "All pixels are blank.") == 0)
-+         {
-+            /* ensure the output file exists, even if it is 0 bytes */
-+            fopen(output_file, "w+");
-+            exit(0);
-+         }
-+         else
-+         {
-+            exit(1);
-+         }
-       }
- 
-       ++count;
+--- Montage-master/MontageLib/Project/montageProject.c	2020-07-28 16:28:07.000000000 +0200
++++ Montage-patched/MontageLib/Project/montageProject.c	2020-11-07 13:14:24.696072290 +0100
+@@ -856,6 +856,9 @@
+    if(oxpixMin > oxpixMax || oypixMin > oypixMax)
+    {
+       sprintf(returnStruct->msg, "No overlap");
++      returnStruct->status = 0;
++      fopen(output_file, "w+");
++      fopen(area_file, "w+");
+       return returnStruct;
+    }
+     
+--- Montage-master/MontageLib/ProjectPP/montageProjectPP.c	2020-07-28 16:28:07.000000000 +0200
++++ Montage-patched/MontageLib/ProjectPP/montageProjectPP.c	2020-11-07 13:15:56.911300195 +0100
+@@ -807,6 +807,9 @@
+    {
+       mProjectPP_printError("No overlap");
+       strcpy(returnStruct->msg, montage_msgstr);
++      returnStruct->status = 0;
++      fopen(output_file, "w+");
++      fopen(area_file, "w+");
+       return returnStruct;
+    }
+     
+--- Montage-master/MontageLib/ProjectCube/montageProjectCube.c	2020-07-28 16:28:07.000000000 +0200
++++ Montage-patched/MontageLib/ProjectCube/montageProjectCube.c	2020-11-07 13:14:59.868853994 +0100
+@@ -821,6 +821,9 @@
+    if(oxpixMin > oxpixMax || oypixMin > oypixMax)
+    {
+       sprintf(returnStruct->msg, "No overlap");
++      returnStruct->status = 0;
++      fopen(output_file, "w+");
++      fopen(area_file, "w+");
+       return returnStruct;
+    }
+     
