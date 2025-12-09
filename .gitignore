@@ -1,0 +1,19 @@
+# Backup files
+.backup/
+
+# Vim swap files
+*.swp
+*.swo
+
+# Data files (large test/generated data)
+data/
+
+# Montage source directories (extracted from tarballs)
+montage2-alpine/Montage-master/
+montage2-alpine/Montage-master-old/
+
+# Build artifacts
+*.o
+*.a
+*.so
+*.dylib

@@ -7,8 +7,6 @@ COPY patches.diff /
 RUN mv Montage-master Montage && \
     cd Montage && \
     patch -p1 < ../patches.diff && \
-    make && \
-    rm -rf MontageLib && \
-    rm -rf Montage
+    make
 
 ENV PATH $PATH:/Montage/bin

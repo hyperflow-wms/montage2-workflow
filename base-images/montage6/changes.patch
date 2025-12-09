@@ -1,0 +1,527 @@
+diff -ru Montage/Montage/Makefile.LINUX Montage6.0-patched/Montage/Makefile.LINUX
+--- Montage/Montage/Makefile.LINUX	2018-03-30 18:36:39.000000000 +0200
++++ Montage6.0-patched/Montage/Makefile.LINUX	2025-10-27 10:04:53.838846459 +0100
+@@ -48,7 +48,7 @@
+ 
+ CC     =	gcc
+ MPICC  =
+-CFLAGS =	-g -I. -I../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99
++CFLAGS =	-g -I. -I../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fcommon
+ LIBS   =	-L../lib -lwcs -lcfitsio -lcoord -lmtbl -lsvc \
+ 		   -lwww -lboundaries -lpixbounds -ltwoplane -lnsl -lm
+ 
+diff -ru Montage/MontageLib/Add/Makefile Montage6.0-patched/MontageLib/Add/Makefile
+--- Montage/MontageLib/Add/Makefile	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Add/Makefile	2025-10-27 10:34:15.040796531 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lwcs -lmtbl -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/Add/Makefile.LINUX Montage6.0-patched/MontageLib/Add/Makefile.LINUX
+--- Montage/MontageLib/Add/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Add/Makefile.LINUX	2025-10-27 10:31:01.222099375 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lwcs -lmtbl -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/AddCube/Makefile Montage6.0-patched/MontageLib/AddCube/Makefile
+--- Montage/MontageLib/AddCube/Makefile	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/AddCube/Makefile	2025-10-27 10:34:15.276843612 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lwcs -lmtbl -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/AddCube/Makefile.LINUX Montage6.0-patched/MontageLib/AddCube/Makefile.LINUX
+--- Montage/MontageLib/AddCube/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/AddCube/Makefile.LINUX	2025-10-27 10:31:09.109347445 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lwcs -lmtbl -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/ArchiveList/Makefile.LINUX Montage6.0-patched/MontageLib/ArchiveList/Makefile.LINUX
+--- Montage/MontageLib/ArchiveList/Makefile.LINUX	2018-08-02 14:35:40.000000000 +0200
++++ Montage6.0-patched/MontageLib/ArchiveList/Makefile.LINUX	2025-10-27 10:31:15.993752701 +0100
+@@ -8,7 +8,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	cc -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+-CFLAGS =	-g -I. -I.. -I../../lib/include -fPIC
++CFLAGS =	-g -I. -I.. -I../../lib/include -fPIC -fcommon
+ LIBS   =	-L../../lib -lwcs -lcfitsio -lcoord -lmtbl -lsvc \
+ 		-lboundaries -lnsl -lm
+ 
+diff -ru Montage/MontageLib/Background/Makefile Montage6.0-patched/MontageLib/Background/Makefile
+--- Montage/MontageLib/Background/Makefile	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Background/Makefile	2025-10-27 10:34:16.013474468 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lmtbl -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/Background/Makefile.LINUX Montage6.0-patched/MontageLib/Background/Makefile.LINUX
+--- Montage/MontageLib/Background/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Background/Makefile.LINUX	2025-10-27 10:31:20.873800991 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lmtbl -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/CoverageCheck/Makefile Montage6.0-patched/MontageLib/CoverageCheck/Makefile
+--- Montage/MontageLib/CoverageCheck/Makefile	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/CoverageCheck/Makefile	2025-10-27 10:34:16.333942638 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lboundaries -lmtbl -lcoord -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/CoverageCheck/Makefile.LINUX Montage6.0-patched/MontageLib/CoverageCheck/Makefile.LINUX
+--- Montage/MontageLib/CoverageCheck/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/CoverageCheck/Makefile.LINUX	2025-10-27 10:30:49.428977888 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lboundaries -lmtbl -lcoord -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/Diff/Makefile Montage6.0-patched/MontageLib/Diff/Makefile
+--- Montage/MontageLib/Diff/Makefile	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Diff/Makefile	2025-10-27 10:34:16.619137306 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/Diff/Makefile.LINUX Montage6.0-patched/MontageLib/Diff/Makefile.LINUX
+--- Montage/MontageLib/Diff/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Diff/Makefile.LINUX	2025-10-27 10:31:30.448335430 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/Examine/Makefile Montage6.0-patched/MontageLib/Examine/Makefile
+--- Montage/MontageLib/Examine/Makefile	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Examine/Makefile	2025-10-27 10:34:16.830996203 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc -std=c99 -fPIC -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99
+-CFLAGS =	-g -I. -I.. -I../../lib/include -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -Wall -fcommon
+ LIBS   =	-L../../lib -lwcs -lcfitsio -lcoord -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/Examine/Makefile.LINUX Montage6.0-patched/MontageLib/Examine/Makefile.LINUX
+--- Montage/MontageLib/Examine/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Examine/Makefile.LINUX	2025-10-27 10:31:35.360760729 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc -std=c99 -fPIC -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99
+-CFLAGS =	-g -I. -I.. -I../../lib/include -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -Wall -fcommon
+ LIBS   =	-L../../lib -lwcs -lcfitsio -lcoord -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/FixNaN/Makefile.LINUX Montage6.0-patched/MontageLib/FixNaN/Makefile.LINUX
+--- Montage/MontageLib/FixNaN/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/FixNaN/Makefile.LINUX	2025-10-27 10:31:39.245214532 +0100
+@@ -8,7 +8,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc -std=c99 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+-CFLAGS =	-g -I. -I.. -I../../lib/include -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/Hdr/Makefile Montage6.0-patched/MontageLib/Hdr/Makefile
+--- Montage/MontageLib/Hdr/Makefile	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Hdr/Makefile	2025-10-27 10:34:17.589303826 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	cc -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC
+-CFLAGS =	-g -I. -I.. -I../../lib/include -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -Wall -fcommon
+ LIBS   =	-L../../lib -lwcs -lcfitsio -lcoord -lmtbl \
+ 		-lboundaries -lnsl -lm
+ 
+diff -ru Montage/MontageLib/Hdr/Makefile.LINUX Montage6.0-patched/MontageLib/Hdr/Makefile.LINUX
+--- Montage/MontageLib/Hdr/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Hdr/Makefile.LINUX	2025-10-27 10:31:42.330580459 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	cc -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC
+-CFLAGS =	-g -I. -I.. -I../../lib/include -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -Wall -fcommon
+ LIBS   =	-L../../lib -lwcs -lcfitsio -lcoord -lmtbl \
+ 		-lboundaries -lnsl -lm
+ 
+diff -ru Montage/MontageLib/Imgtbl/Makefile Montage6.0-patched/MontageLib/Imgtbl/Makefile
+--- Montage/MontageLib/Imgtbl/Makefile	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Imgtbl/Makefile	2025-10-27 10:34:17.927592879 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lwcs -lcoord -lmtbl -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/Imgtbl/Makefile.LINUX Montage6.0-patched/MontageLib/Imgtbl/Makefile.LINUX
+--- Montage/MontageLib/Imgtbl/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Imgtbl/Makefile.LINUX	2025-10-27 10:31:45.601509830 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lwcs -lcoord -lmtbl -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/MakeHdr/Makefile Montage6.0-patched/MontageLib/MakeHdr/Makefile
+--- Montage/MontageLib/MakeHdr/Makefile	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/MakeHdr/Makefile	2025-10-27 10:34:18.146191916 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lwcs -lboundaries -lmtbl -lcoord -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/MakeHdr/Makefile.LINUX Montage6.0-patched/MontageLib/MakeHdr/Makefile.LINUX
+--- Montage/MontageLib/MakeHdr/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/MakeHdr/Makefile.LINUX	2025-10-27 10:31:48.969466587 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lwcs -lboundaries -lmtbl -lcoord -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/MakeImg/Makefile.LINUX Montage6.0-patched/MontageLib/MakeImg/Makefile.LINUX
+--- Montage/MontageLib/MakeImg/Makefile.LINUX	2018-10-05 20:42:33.000000000 +0200
++++ Montage6.0-patched/MontageLib/MakeImg/Makefile.LINUX	2025-10-27 10:31:51.991414783 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lcmd -lmtbl -ljson -lcoord -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/Overlaps/Makefile Montage6.0-patched/MontageLib/Overlaps/Makefile
+--- Montage/MontageLib/Overlaps/Makefile	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Overlaps/Makefile	2025-10-27 10:34:18.584281882 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lcoord -lwcs -lmtbl -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/Overlaps/Makefile.LINUX Montage6.0-patched/MontageLib/Overlaps/Makefile.LINUX
+--- Montage/MontageLib/Overlaps/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Overlaps/Makefile.LINUX	2025-10-27 10:31:54.675033047 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lcoord -lwcs -lmtbl -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/Project/Makefile Montage6.0-patched/MontageLib/Project/Makefile
+--- Montage/MontageLib/Project/Makefile	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Project/Makefile	2025-10-27 10:34:18.760299465 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lcoord -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/Project/Makefile.LINUX Montage6.0-patched/MontageLib/Project/Makefile.LINUX
+--- Montage/MontageLib/Project/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Project/Makefile.LINUX	2025-10-27 10:29:12.048913607 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lcoord -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/ProjectCube/Makefile Montage6.0-patched/MontageLib/ProjectCube/Makefile
+--- Montage/MontageLib/ProjectCube/Makefile	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/ProjectCube/Makefile	2025-10-27 10:34:19.034265828 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lcoord -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/ProjectCube/Makefile.LINUX Montage6.0-patched/MontageLib/ProjectCube/Makefile.LINUX
+--- Montage/MontageLib/ProjectCube/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/ProjectCube/Makefile.LINUX	2025-10-27 10:29:24.889595485 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lcoord -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/ProjectPP/Makefile Montage6.0-patched/MontageLib/ProjectPP/Makefile
+--- Montage/MontageLib/ProjectPP/Makefile	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/ProjectPP/Makefile	2025-10-27 10:34:19.313425543 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -ltwoplane -lcoord -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/ProjectPP/Makefile.LINUX Montage6.0-patched/MontageLib/ProjectPP/Makefile.LINUX
+--- Montage/MontageLib/ProjectPP/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/ProjectPP/Makefile.LINUX	2025-10-27 10:29:48.908640953 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -ltwoplane -lcoord -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/ProjectQL/Makefile Montage6.0-patched/MontageLib/ProjectQL/Makefile
+--- Montage/MontageLib/ProjectQL/Makefile	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/ProjectQL/Makefile	2025-10-27 10:34:19.557198815 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lcoord -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/ProjectQL/Makefile.LINUX Montage6.0-patched/MontageLib/ProjectQL/Makefile.LINUX
+--- Montage/MontageLib/ProjectQL/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/ProjectQL/Makefile.LINUX	2025-10-27 10:29:59.948185833 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lcoord -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/SubCube/Makefile Montage6.0-patched/MontageLib/SubCube/Makefile
+--- Montage/MontageLib/SubCube/Makefile	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/SubCube/Makefile	2025-10-27 10:34:20.345104216 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lcoord -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/SubCube/Makefile.LINUX Montage6.0-patched/MontageLib/SubCube/Makefile.LINUX
+--- Montage/MontageLib/SubCube/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/SubCube/Makefile.LINUX	2025-10-27 10:32:01.935690866 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lcoord -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/Subimage/Makefile Montage6.0-patched/MontageLib/Subimage/Makefile
+--- Montage/MontageLib/Subimage/Makefile	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Subimage/Makefile	2025-10-27 10:34:20.582080903 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lcoord -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/Subimage/Makefile.LINUX Montage6.0-patched/MontageLib/Subimage/Makefile.LINUX
+--- Montage/MontageLib/Subimage/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Subimage/Makefile.LINUX	2025-10-27 10:32:04.506510484 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lcoord -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/Subset/Makefile.LINUX Montage6.0-patched/MontageLib/Subset/Makefile.LINUX
+--- Montage/MontageLib/Subset/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Subset/Makefile.LINUX	2025-10-27 10:32:07.341914631 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lcoord -lmtbl -lwcs -lcfitsio -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/TANHdr/Makefile Montage6.0-patched/MontageLib/TANHdr/Makefile
+--- Montage/MontageLib/TANHdr/Makefile	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/TANHdr/Makefile	2025-10-27 10:23:50.483575200 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc
+-CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lwcs -lmtbl -lcfitsio -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/Transpose/Makefile.LINUX Montage6.0-patched/MontageLib/Transpose/Makefile.LINUX
+--- Montage/MontageLib/Transpose/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Transpose/Makefile.LINUX	2025-10-27 10:32:11.543993712 +0100
+@@ -8,7 +8,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+-CFLAGS =	-g -I. -I.. -I../../lib/include -std=c99 -fPIC -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -std=c99 -fPIC -Wall -fcommon
+ LIBS   =	-L../../lib -lwcs -lcfitsio -lcoord -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/MontageLib/Viewer/Makefile.LINUX Montage6.0-patched/MontageLib/Viewer/Makefile.LINUX
+--- Montage/MontageLib/Viewer/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/Viewer/Makefile.LINUX	2025-10-27 10:32:17.251016914 +0100
+@@ -12,7 +12,7 @@
+ CC     =        gcc -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC \
+                 -DFONT_DIR='"$(DATA_DIR)/fonts/"'
+ CFLAGS =	-g -I. -I.. -I../../lib/include -I../../lib/freetype/include \
+-		-I../../lib/freetype/include/freetype2 -I../../Montage -Wall
++		-I../../lib/freetype/include/freetype2 -I../../Montage -Wall -fcommon
+ LIBS   =        -L../../lib -lwcs -lcoord -lcfitsio -ljpeg -llodepng -lmtbl -ljson -lcmd \
+                 -L../../lib/freetype/lib -lfreetype -lnsl -lm
+ 
+diff -ru Montage/MontageLib/WWT/Makefile.LINUX Montage6.0-patched/MontageLib/WWT/Makefile.LINUX
+--- Montage/MontageLib/WWT/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/MontageLib/WWT/Makefile.LINUX	2025-10-27 10:32:24.388796745 +0100
+@@ -2,7 +2,7 @@
+ .SUFFIXES: .c .o
+ 
+ CC     =	gcc -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -fPIC
+-CFLAGS =	-g -I. -I.. -I../../lib/include -Wall
++CFLAGS =	-g -I. -I.. -I../../lib/include -Wall -fcommon
+ LIBS   =	-L../../lib -lsvc -lnsl -lm
+ 
+ .c.o:
+diff -ru Montage/lib/src/coord/Makefile Montage6.0-patched/lib/src/coord/Makefile
+--- Montage/lib/src/coord/Makefile	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/lib/src/coord/Makefile	2025-10-27 10:05:04.735563056 +0100
+@@ -1,6 +1,6 @@
+ CC      =	gcc
+ CFLAGS  =	-g -c -fPIC -D_LARGEFILE_SOURCE \
+-		-D_FILE_OFFSET_BITS=64 -I. -I../../include
++		-D_FILE_OFFSET_BITS=64 -I. -I../../include -fcommon
+ LIBNAME =	libcoord.a
+ 
+ SRCS    =	ccalc.c                    \
+diff -ru Montage/util/MovingTarget/Makefile.LINUX Montage6.0-patched/util/MovingTarget/Makefile.LINUX
+--- Montage/util/MovingTarget/Makefile.LINUX	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/util/MovingTarget/Makefile.LINUX	2025-10-27 10:21:59.275886758 +0100
+@@ -7,8 +7,8 @@
+ .SUFFIXES:
+ .SUFFIXES: .c .o
+ 
+-CC     =	gcc -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+-CFLAGS =	-g -I. -I./rtree -I../../lib/include -I../../Montage
++CC     =	gcc -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 
++CFLAGS =	-g -I. -I./rtree -I../../lib/include -I../../Montage -fcommon
+ LIBS   =	-Lrtree -lrtree \
+ 		-L../../lib -lcmd -lwcs -lcoord -lmtbl -lcfitsio -lnsl -lm
+ 
+diff -ru Montage/util/Search/rtree/Makefile Montage6.0-patched/util/Search/rtree/Makefile
+--- Montage/util/Search/rtree/Makefile	2018-03-24 16:36:55.000000000 +0100
++++ Montage6.0-patched/util/Search/rtree/Makefile	2025-10-27 10:22:58.748343535 +0100
+@@ -1,5 +1,5 @@
+ CC = gcc
+-CFLAGS = 
++CFLAGS = -fcommon
+ 
+ OBJECTS = card.o \
+ 	index.o \
