@@ -1,7 +1,7 @@
 REPO_NAME = 'montage-worker'
 PREFIX = 'hyperflowwms'
 MONTAGE_VERSION = '6.0'
-HF_JOB_EXECUTOR_VERSION = '1.4.0'
+HF_JOB_EXECUTOR_VERSION = '1.4.1'
 TAG = '$(MONTAGE_VERSION)-je$(HF_JOB_EXECUTOR_VERSION)'
 
 all: push
