@@ -1,0 +1,29 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    ":semanticCommitsDisabled"
+  ],
+  "enabledManagers": [
+    "custom.regex"
+  ],
+  "labels": [
+    "dependencies",
+    "release-chain"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "job-executor version for the Montage 6 worker only; montage5 is out of scope",
+      "fileMatch": [
+        "worker-images/montage6-worker/Makefile"
+      ],
+      "matchStrings": [
+        "HF_JOB_EXECUTOR_VERSION\\s*\\??=\\s*['\"]?(?<currentValue>\\d+\\.\\d+\\.\\d+)['\"]?"
+      ],
+      "depNameTemplate": "@hyperflow/job-executor",
+      "datasourceTemplate": "npm"
+    }
+  ]
+}

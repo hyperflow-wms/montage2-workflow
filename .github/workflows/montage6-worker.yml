@@ -1,0 +1,57 @@
+# Builds the Montage 6 worker image, and publishes it when the change lands on
+# master. The image tag encodes the job-executor version (6.0-je1.4.1), so
+# merging a Renovate bump of its Makefile is what produces a new tag.
+#
+# The paths filter is what keeps montage5-worker out of scope: a change there
+# never triggers this workflow.
+
+name: montage6-worker
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'worker-images/montage6-worker/**'
+      - '.github/workflows/montage6-worker.yml'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'worker-images/montage6-worker/**'
+      - '.github/workflows/montage6-worker.yml'
+  workflow_dispatch:
+    inputs:
+      push:
+        description: 'Push the built image to Docker Hub'
+        type: boolean
+        default: false
+
+jobs:
+  montage6-worker:
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: worker-images/montage6-worker
+    env:
+      DO_PUSH: ${{ github.event_name == 'push' || inputs.push }}
+      HAVE_DOCKERHUB: ${{ secrets.DOCKERHUB_USERNAME != '' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Log in before building: pulling montage-base counts against the
+      # anonymous Docker Hub rate limit, which shared runners routinely exhaust.
+      - name: Login to Docker Hub
+        if: env.HAVE_DOCKERHUB == 'true'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build
+        run: make image
+
+      - name: Show built tags
+        run: docker images 'hyperflowwms/montage-worker'
+
+      - name: Push
+        if: env.DO_PUSH == 'true' && env.HAVE_DOCKERHUB == 'true'
+        run: make push
