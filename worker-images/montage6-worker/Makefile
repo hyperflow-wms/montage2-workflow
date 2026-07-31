@@ -2,7 +2,7 @@ REPO_NAME = montage-worker
 PREFIX = hyperflowwms
 MONTAGE_VERSION = 6.0
 # ?= so CI and Renovate can override the version from the environment
-HF_JOB_EXECUTOR_VERSION ?= 1.4.1
+HF_JOB_EXECUTOR_VERSION ?= 1.4.2
 TAG = $(MONTAGE_VERSION)-je$(HF_JOB_EXECUTOR_VERSION)
 
 all: push
