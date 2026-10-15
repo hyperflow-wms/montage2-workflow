@@ -1,6 +1,10 @@
 # Builds the Montage 6 worker image, and publishes it when the change lands on
-# master. The image tag encodes the job-executor version (6.0-je1.4.1), so
+# master. The image tag encodes the job-executor version (6.0-je<version>), so
 # merging a Renovate bump of its Makefile is what produces a new tag.
+#
+# The worker's Montage tools come from the base image, so the worker is also
+# rebuilt and pushed after montage6-base.yml publishes a new base from a push
+# to master.
 #
 # The paths filter is what keeps montage5-worker out of scope: a change there
 # never triggers this workflow.
@@ -18,6 +22,10 @@ on:
     paths:
       - 'worker-images/montage6-worker/**'
       - '.github/workflows/montage6-worker.yml'
+  workflow_run:
+    workflows: [ montage6-base ]
+    types: [ completed ]
+    branches: [ master ]
   workflow_dispatch:
     inputs:
       push:
@@ -27,12 +35,18 @@ on:
 
 jobs:
   montage6-worker:
+    # After a base run, continue only if it succeeded and was triggered by a
+    # push, because only those runs publish the base.
+    if: >-
+      github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'push')
     runs-on: ubuntu-22.04
     defaults:
       run:
         working-directory: worker-images/montage6-worker
     env:
-      DO_PUSH: ${{ github.event_name == 'push' || inputs.push }}
+      DO_PUSH: ${{ github.event_name == 'push' || github.event_name == 'workflow_run' || inputs.push }}
       HAVE_DOCKERHUB: ${{ secrets.DOCKERHUB_USERNAME != '' }}
     steps:
       - uses: actions/checkout@v4
@@ -51,6 +65,14 @@ jobs:
 
       - name: Show built tags
         run: docker images 'hyperflowwms/montage-worker'
+
+      # Fails if the base image pulled from Docker Hub lacks a Montage tool the
+      # workflow runs. The script comes from this checkout, not from the image.
+      - name: Check Montage tools
+        run: >-
+          docker run --rm
+          -v "$GITHUB_WORKSPACE/base-images/montage6/check-tools.sh:/check-tools.sh:ro"
+          hyperflowwms/montage-worker:6.0-latest sh /check-tools.sh
 
       - name: Push
         if: env.DO_PUSH == 'true' && env.HAVE_DOCKERHUB == 'true'

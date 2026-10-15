@@ -1,0 +1,57 @@
+# Builds the Montage 6 base image, and publishes it when the change lands on
+# master. Montage is compiled from source, and the Dockerfile fails the build
+# if any tool the workflow needs is missing.
+#
+# A successful push on master triggers montage6-worker.yml, which rebuilds the
+# worker on top of the new base.
+
+name: montage6-base
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'base-images/montage6/**'
+      - '.github/workflows/montage6-base.yml'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'base-images/montage6/**'
+      - '.github/workflows/montage6-base.yml'
+  workflow_dispatch:
+    inputs:
+      push:
+        description: 'Push the built image to Docker Hub'
+        type: boolean
+        default: false
+
+jobs:
+  montage6-base:
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: base-images/montage6
+    env:
+      DO_PUSH: ${{ github.event_name == 'push' || inputs.push }}
+      HAVE_DOCKERHUB: ${{ secrets.DOCKERHUB_USERNAME != '' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Log in before building: pulling the node base counts against the
+      # anonymous Docker Hub rate limit, which shared runners routinely exhaust.
+      - name: Login to Docker Hub
+        if: env.HAVE_DOCKERHUB == 'true'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # "make push" builds the image itself, with --no-cache, so a separate
+      # build step before it would compile Montage twice.
+      - name: Build
+        if: env.DO_PUSH != 'true' || env.HAVE_DOCKERHUB != 'true'
+        run: make image
+
+      - name: Build and push
+        if: env.DO_PUSH == 'true' && env.HAVE_DOCKERHUB == 'true'
+        run: make push
